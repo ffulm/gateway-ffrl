@@ -1,38 +1,13 @@
 *filter
-:INPUT DROP [0:0]
-:FORWARD DROP [0:0]
-:OUTPUT ACCEPT [1216:88995]
--A INPUT -i lo -j ACCEPT
--A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
-
-# allow SSH on any interface
--A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
-
-# allow icmp
--A INPUT -p icmp -j ACCEPT
-
-# allow HTTP, HTTPS on any interface
--A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
-
-# allow connect to tincd from ICVPN
--A INPUT -p tcp -m tcp --dport 656 -j ACCEPT
-
-# allow DNS from freifunk meshnet
--A INPUT -i bat0 -p udp -m udp --dport 53 -j ACCEPT
--A INPUT -i bat0 -p tcp -m tcp --dport 53 -j ACCEPT
-
-# allow munin stats from freifunk meshnet
--A INPUT -i bat0 -p tcp -m tcp --dport 4949 -j ACCEPT
-
-# allow fastd connections on any interface
--A INPUT -p tcp -m tcp --dport 1244 -j ACCEPT
--A INPUT -p udp -m udp --dport 1244 -j ACCEPT
-
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+-A FORWARD -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
 COMMIT
+
 *nat
-:PREROUTING ACCEPT [5937:390086]
-:INPUT ACCEPT [5235:337093]
-:OUTPUT ACCEPT [2619:167605]
-:POSTROUTING ACCEPT [2619:167605]
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
 COMMIT
