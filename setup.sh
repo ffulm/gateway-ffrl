@@ -32,7 +32,8 @@ community_name="Ulm"
 ff_servername="vpnXX"
 
 # The internal IPv6 prefix as defined in the Freifunk community wiki.
-ff_prefix="fdef:17a0:fff1:300::"
+# https://wiki.freifunk-ulm.de/display/FI/Freifunk+Rheinland
+ff_prefix="2a03:2260:1015:xxxx::/64"
 
 ####################
 # 1. Mesh settings #

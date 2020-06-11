@@ -43,30 +43,4 @@ fi
 	chown -R www-data:www-data /var/www
 }
 
-
-{
-	# remove build remains
-	rm -rf /opt/letsencrypt/
-
-	# get certbot
-	apt install --assume-yes certbot
-
-	# get letsencrypt client
-	#echo "(I) ${green}Populate /opt/letsencrypt/${col_reset}"
-	#git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt/
-
-	# copy cert renewal script
-	# backslash is for unaliased version of cp (no user interaction)
-	\cp etc/cron.daily/check_cert.sh /etc/cron.daily/
-	
-	mkdir -p /var/log/letsencrypt/
-	touch /var/log/letsencrypt/renew.log
-	touch /var/log/letsencrypt/getcert.log
-
-	# call once to get initial cert
-	echo "(I) ${green}Get Letsencrypt Certificate... This can take some time!${col_reset}"
-	/etc/cron.daily/check_cert.sh
-
-}
-
 exit 0
