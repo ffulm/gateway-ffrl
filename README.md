@@ -42,7 +42,7 @@ Innerhalb des Freifunknetzes gibt es die DNS Zone ".ffulm". D.h. es können auch
 Falls weitere Server hinzugefügt werden, müssen die Zonendateien auf dem Master (db.10.33, db.ffulm, named.conf.local) manuell angepasst werden. Hierzu bitte auf der Mailingliste melden.
 
 ### alfred 
-Des Weiteren sollte mindestens ein Server mit dem Schalter "-m" als alfred master betrieben werden. Zur Zeit ist dies map10.
+Des Weiteren sollte mindestens ein Server mit dem Schalter "-m" als alfred master betrieben werden. Zur Zeit ist dies map11.
 (Schalter zu finden unter: https://github.com/ffulm/server-config/blob/master/freifunk/update.sh)
 
 ### Netz
