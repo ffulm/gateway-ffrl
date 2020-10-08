@@ -18,7 +18,7 @@ echo "${green}***************************${col_reset}"
 
 	#install batman-adv
 	wget -N --no-check-certificate http://downloads.open-mesh.org/batman/releases/batman-adv-$batman_version/batman-adv-$batman_version.tar.gz
-	sha256check "batman-adv-$batman_version.tar.gz" "a73f5ce72c6efa9dd7bd7cc8daa667d0982e12e40811c978bb652607bb5666a3"
+	sha256check "batman-adv-$batman_version.tar.gz" "65516dca919ea5be58d141c78bd1f0a94a02a784c5c85fb4e8f27f4226803f73"
 	tar -xzf batman-adv-$batman_version.tar.gz
 	cd batman-adv-$batman_version/
 	make CONFIG_BATMAN_ADV_DEBUGFS=y
@@ -28,7 +28,7 @@ echo "${green}***************************${col_reset}"
 
 	#install batctl
 	wget -N --no-check-certificate http://downloads.open-mesh.org/batman/releases/batman-adv-$batman_version/batctl-$batman_version.tar.gz
-	sha256check "batctl-$batman_version.tar.gz" "d29cdb53ee68abd5027eae07d9fd645b3f154e0d577efa2666c1334bb6d60efd"
+	sha256check "batctl-$batman_version.tar.gz" "3513f7eb3f61817b6894b90832aa5eba513293f487d174ebc98f1bafc9165c64"
 	tar -xzf batctl-$batman_version.tar.gz
 	cd batctl-$batman_version/
 	make
@@ -38,7 +38,7 @@ echo "${green}***************************${col_reset}"
 
 	#install alfred
 	wget -N --no-check-certificate http://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-$batman_version.tar.gz
-	sha256check "alfred-$batman_version.tar.gz" "1cca2f600f585455a598c92de6fa2b4307c6fe76dddd9d4d29c7648212db9f5e"
+	sha256check "alfred-$batman_version.tar.gz" "821739e570fc3da9936e70075ec04a3caf3b847cc8702f13a0725e903e637b8d"
 	tar -xzf alfred-$batman_version.tar.gz
 	cd alfred-$batman_version/
 	make CONFIG_ALFRED_GPSD=n CONFIG_ALFRED_VIS=n
