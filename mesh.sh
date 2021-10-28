@@ -14,11 +14,11 @@ echo "${green}***************************${col_reset}"
 
 {
 	echo "(I) ${green}Install batman-adv, batctl and alfred ($batman_version).${col_reset}"
-	apt install --assume-yes wget build-essential linux-headers-$(uname -r) pkg-config libnl-3-dev libjson-c-dev git libcap-dev pkg-config libnl-genl-3-dev
+	apt install --assume-yes libmnl-dev clang-format meson bison wget build-essential linux-headers-$(uname -r) pkg-config libnl-3-dev libjson-c-dev git libcap-dev pkg-config libnl-genl-3-dev
 
 	#install batman-adv
 	wget -N --no-check-certificate http://downloads.open-mesh.org/batman/releases/batman-adv-$batman_version/batman-adv-$batman_version.tar.gz
-	sha256check "batman-adv-$batman_version.tar.gz" "bf77843d8dead75342d673ce7021e4ad037447ce18c64056ae1e3202039934d0"
+	sha256check "batman-adv-$batman_version.tar.gz" "b24deec9baee786ca91085e32f7e09d4cc94f965ae71c9560895f82ec1cc906b"
 	tar -xzf batman-adv-$batman_version.tar.gz
 	cd batman-adv-$batman_version/
 	make CONFIG_BATMAN_ADV_DEBUGFS=y
@@ -28,7 +28,7 @@ echo "${green}***************************${col_reset}"
 
 	#install batctl
 	wget -N --no-check-certificate http://downloads.open-mesh.org/batman/releases/batman-adv-$batman_version/batctl-$batman_version.tar.gz
-	sha256check "batctl-$batman_version.tar.gz" "44b28cebb46b8ba1bc170bedeef67f69d89503806c429ff8cb113cc01966e176"
+	sha256check "batctl-$batman_version.tar.gz" "f22f4befc28f8a4609f1f8403b4c40ea01b83e4f9448453e2bbae3db7b47fc20"
 	tar -xzf batctl-$batman_version.tar.gz
 	cd batctl-$batman_version/
 	make
@@ -38,7 +38,7 @@ echo "${green}***************************${col_reset}"
 
 	#install alfred
 	wget -N --no-check-certificate http://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-$batman_version.tar.gz
-	sha256check "alfred-$batman_version.tar.gz" "94e2cf4dad885f9059fc8b8694a71eca51c9e184683bb99a79e3de8cb7485e88"
+	sha256check "alfred-$batman_version.tar.gz" "be6229edf2a3e9cf69122e5283d113e9405f1455e8fd4ebd55294e9bf9157b5a"
 	tar -xzf alfred-$batman_version.tar.gz
 	cd alfred-$batman_version/
 	make CONFIG_ALFRED_GPSD=n CONFIG_ALFRED_VIS=n
@@ -67,10 +67,10 @@ echo "${green}***************************${col_reset}"
 	echo "(I) ${green}Build and install libsodium${col_reset}"
 
 	#install libsodium
-	wget -N --no-check-certificate -O libsodium-1.0.18.tar.gz https://download.libsodium.org/libsodium/releases/libsodium-1.0.18-stable.tar.gz
-	sha256check "libsodium-1.0.18.tar.gz" "2a785fc1aa47c05c556df20184d0cbb2a8b49af08b9d5ed7f5788fa7a9c06981"
+	wget -N --no-check-certificate https://github.com/jedisct1/libsodium/releases/download/1.0.18-RELEASE/libsodium-1.0.18.tar.gz -O libsodium-1.0.18.tar.gz
+	sha256check "libsodium-1.0.18.tar.gz" "6f504490b342a4f8a4c4a02fc9b866cbef8622d5df4e5452b46be121e46636c1"
 	tar -xvzf libsodium-1.0.18.tar.gz
-	cd libsodium-stable
+	cd libsodium-1.0.18
 	./configure
 	make
 	make install
@@ -81,9 +81,9 @@ echo "${green}***************************${col_reset}"
 	echo "(I) ${green}Build and install libuecc${col_reset}"
 
 	#install libuecc
-	wget -N --no-check-certificate https://git.universe-factory.net/libuecc/snapshot/libuecc-7.tar -O libuecc-7.tar
-	sha256check "libuecc-7.tar" "0120aee869f56289204255ba81535369816655264dd018c63969bf35b71fd707"
-	tar xf libuecc-7.tar
+	wget -N --no-check-certificate https://github.com/NeoRaider/libuecc/releases/download/v7/libuecc-7.tar.xz -O libuecc-7.tar.xz
+	sha256check "libuecc-7.tar.xz" "b94aef08eab5359d0facaa7ead2ce81b193eef0c61379d9835213ebc0a46257a"
+	tar xf libuecc-7.tar.xz
 	mkdir libuecc_build
 	cd libuecc_build
 	cmake ../libuecc-7
@@ -96,17 +96,15 @@ echo "${green}***************************${col_reset}"
 	echo "(I) ${green}Build and install fastd${col_reset}"
 
 	#install fastd
-	wget -N --no-check-certificate https://git.universe-factory.net/fastd/snapshot/fastd-18.tar -O fastd-18.tar
-	sha256check "fastd-18.tar" "dce99ee057f43e3d732a120fb0cb60acb3b86e8231d3dd64ab72fc1254c2491a"
-	tar xf fastd-18.tar
-	mkdir fastd_build
-	cd fastd_build
-	# -D is workaround needed till fastd-19
-	cmake ../fastd-18 -DWITH_CIPHER_AES128_CTR_NACL=OFF
-	make
-	make install
+	wget -N --no-check-certificate https://github.com/NeoRaider/fastd/releases/download/v22/fastd-22.tar.xz -O fastd-22.tar.xz
+	sha256check "fastd-22.tar.xz" "19750b88705d66811b7c21b672537909c19ae6b21350688cbd1a3a54d08a8951"
+	tar xf fastd-22.tar.xz
+	meson setup fastd-22 fastd-build -Dbuildtype=release -Db_lto=true
+	cd fastd-build
+	ninja
+	ninja install
 	cd ..
-	rm -rf fastd_build fastd-18*
+	rm -rf fastd*
 }
 
 {
