@@ -14,7 +14,7 @@ echo "${green}***************************${col_reset}"
 
 {
 	echo "(I) ${green}Install batman-adv, batctl and alfred ($batman_version).${col_reset}"
-	apt install --assume-yes libmnl-dev clang-format meson bison wget build-essential linux-headers-$(uname -r) pkg-config libnl-3-dev libjson-c-dev git libcap-dev pkg-config libnl-genl-3-dev
+	apt install --assume-yes clang-format meson bison wget build-essential linux-headers-$(uname -r) pkg-config libnl-3-dev libjson-c-dev git libcap-dev pkg-config libnl-genl-3-dev libssl-dev libmnl-dev
 
 	#install batman-adv
 	wget -N --no-check-certificate http://downloads.open-mesh.org/batman/releases/batman-adv-$batman_version/batman-adv-$batman_version.tar.gz
