@@ -110,6 +110,8 @@ echo "${green}***************************${col_reset}"
 {
 	echo "(I) ${green}Configure fastd${col_reset}"
 	cp -r etc/fastd /etc/
+	ln -s /usr/local/bin/fastd /usr/local/bin/fastd-2
+	ln -s /usr/local/bin/fastd /usr/local/bin/fastd-3
 
 	if [ -z "$fastd_secret" ]; then
 		echo "(I) ${green}Create fastd public/private key pair. This may take a while...${col_reset}"
